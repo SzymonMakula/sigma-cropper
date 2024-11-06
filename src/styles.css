@@ -1,0 +1,33 @@
+#wrapper {
+    position: relative;
+    height: calc(var(--cropper-min-w) * 1px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(var(--cropper-min-w) * 1px);
+}
+
+::slotted(*) {
+    width: calc(var(--cropper-min-w) * 1px);
+    height: calc(var(--cropper-min-w) * 1px);
+    z-index: 2;
+    position: absolute;
+    pointer-events: none;
+}
+
+:host(sigma-cropper) {
+    position: relative;
+}
+
+
+#draggable {
+    min-width: calc(var(--cropper-min-w) * 1px);
+    min-height: calc(var(--cropper-min-w) * 1px);
+    max-width: none;
+    position: absolute;
+    cursor: grab;
+}
+
+#draggable::selection {
+    background: none;
+}

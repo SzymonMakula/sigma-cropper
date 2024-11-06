@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Example 1</title>
+    <script src="../index.js"></script>
+    <style>
+        html {
+            --cropper-min-h: 360;
+            --cropper-min-w: 360;
+        }
+
+        .my-slot {
+            outline: 3px blue solid;
+        }
+
+        .cropper-wrapper {
+            height: 600px;
+            width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: grey;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div style="display: flex; flex-direction: column; gap: 12px; align-items: center">
+        <header>
+            <h1>Example 1: File Browser</h1>
+        </header>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+            <div style="display: flex; flex-direction: column; gap: 12px">
+                <div class="cropper-wrapper">
+                    <sigma-cropper src="cat.jpg">
+                        <div class="my-slot" slot="selection"></div>
+                    </sigma-cropper>
+                </div>
+                <button id="crop-button">Crop Image
+                </button>
+
+                <fieldset style="display: flex; flex-direction: column;">
+                    <legend>Scale:</legend>
+                    <input id="image-scale" max="100" min="0" step="1" style="width: 100%;" type="range" value="0">
+                </fieldset>
+                <fieldset>
+                    <legend>Image source:</legend>
+                    <input accept="image/jpeg, image/png" id="file-picker" type="file">
+                </fieldset>
+                <fieldset>
+                    <legend>Output quality:</legend>
+                    <input id="quality-range" list="quality" max="100"
+                           min="0"
+                           type="range" value="75">
+                    <datalist id="quality">
+                        <option label="0" value="0"></option>
+                        <option label="25" value="25"></option>
+                        <option label="50" value="50"></option>
+                        <option label="75" value="75"></option>
+                        <option label="100" value="100"></option>
+                    </datalist>
+                </fieldset>
+                <fieldset id="format-radio">
+                    <legend>Output format</legend>
+                    <div>
+                        <input checked id="jpeg" name="format" type="radio" value="jpeg"/>
+                        <label for="jpeg">.jpeg</label>
+                    </div>
+                    <div>
+                        <input id="png" name="format" type="radio" value="png"/>
+                        <label for="png">.png</label>
+                    </div>
+                    <div>
+                        <input id="webp" name="format" type="radio" value="webp"/>
+                        <label for="webp">.webp</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="cropper-wrapper">
+                <img id="preview"/>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    const cropButton = document.getElementById("crop-button");
+    const preview = document.getElementById("preview")
+    const cropper = document.querySelector("sigma-cropper")
+    const scale = document.getElementById("image-scale");
+    const filePicker = document.getElementById("file-picker");
+    const qualityRange = document.getElementById("quality-range")
+    const formatRadio = document.getElementById("format-radio")
+
+    formatRadio.oninput = (event) => {
+        console.log(event.target.value)
+        cropper.setAttribute("format", event.target.value)
+    }
+
+    qualityRange.oninput = (event) => {
+        const qualityValue = event.target.value / 100;
+        cropper.setAttribute("quality", qualityValue.toString())
+    }
+
+    filePicker.oninput = (event) => {
+        const [file] = event.target.files
+        const url = URL.createObjectURL(file)
+        cropper.setAttribute("src", url);
+
+        // Reset scale
+        scale.value = 0;
+        scale.dispatchEvent(new Event("input"))
+    }
+
+
+    cropButton.onclick = async () => {
+        const file = await cropper.cropImage()
+        console.log(file)
+        preview.src = URL.createObjectURL(file)
+    }
+
+    scale.addEventListener("input", (event) => {
+        cropper.scaleImage(1 + event.target.value / 100)
+    })
+</script>
+</body>
+</html>

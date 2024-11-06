@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Title</title>
+</head>
+<body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example 2</title>
+    <script src="../index.js"></script>
+    <style>
+        html {
+            --cropper-min-h: 360;
+            --cropper-min-w: 360;
+        }
+
+        .my-slot {
+            border-radius: 100%;
+            box-shadow: 0 0 9999px;
+            outline: 3px blue solid;
+        }
+
+        .cropper-wrapper {
+            height: 600px;
+            width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: grey;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div style="display: flex; flex-direction: column; gap: 12px; align-items: center">
+        <header>
+            <h1>Example 2: File Browser</h1>
+        </header>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+            <div style="display: flex; flex-direction: column; gap: 12px">
+                <div class="cropper-wrapper">
+                    <sigma-cropper src="cat.jpg">
+                        <div class="my-slot" slot="selection"></div>
+                    </sigma-cropper>
+                </div>
+                <button id="crop-button">Crop Image
+                </button>
+
+                <fieldset style="display: flex; flex-direction: column;">
+                    <div style="display: flex; gap: 4px;">
+                        <label for="image-scale">Scale</label>
+                        <input id="image-scale" max="100" min="0" step="1" style="width: 100%;" type="range" value="0">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <input accept="image/jpeg, image/png" id="file-picker" type="file">
+                </fieldset>
+            </div>
+            <div class="cropper-wrapper">
+                <img id="preview"/>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    const cropButton = document.getElementById("crop-button");
+    const preview = document.getElementById("preview")
+    const cropper = document.querySelector("sigma-cropper")
+    const scale = document.getElementById("image-scale");
+    const filePicker = document.getElementById("file-picker");
+
+    filePicker.oninput = (event) => {
+        const [file] = event.target.files
+        const url = URL.createObjectURL(file)
+        cropper.setAttribute("src", url);
+
+        // Reset scale
+        scale.value = 0;
+        scale.dispatchEvent(new Event("input"))
+    }
+
+    cropButton.onclick = async () => {
+        const file = await cropper.cropImage()
+        preview.src = URL.createObjectURL(file)
+    }
+
+    scale.addEventListener("input", (event) => {
+        cropper.scaleImage(1 + event.target.value / 100)
+    })
+</script>
+</body>
+</html>
+
+</body>
+</html>
