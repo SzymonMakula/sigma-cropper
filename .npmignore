@@ -1,0 +1,6 @@
+.github
+docs
+rollup.config.mjs
+.idea
+src
+tsconfig.json

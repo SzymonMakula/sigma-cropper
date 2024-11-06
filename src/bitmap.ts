@@ -5,7 +5,6 @@ export async function getScaledBitmap(src: string) {
 
   const targetBlob = await fetch(src).then((res) => res.blob());
   const originalBitmap = await createImageBitmap(targetBlob);
-  console.log(originalBitmap.width, originalBitmap.height, "original");
   const isLandscapeOrientation = originalBitmap.width > originalBitmap.height;
 
   const scaledBitmap = await createImageBitmap(originalBitmap, {
@@ -15,7 +14,6 @@ export async function getScaledBitmap(src: string) {
   });
   originalBitmap.close();
 
-  console.log(scaledBitmap.width, innerHeight, "scaled");
   return scaledBitmap;
 }
 

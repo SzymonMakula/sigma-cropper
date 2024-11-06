@@ -22,17 +22,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: "npm"
       - run: npm install
       - run: npm run build
+      - run: mv dist/index.js docs/index.js
       - name: Upload build-artifacts
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: |
-            dist/
             docs/
 
   trigger-deploy:
     needs: build
-    uses: cymruu/xtb-to-divtracker/.github/workflows/deploy.yml@master
+    uses: SzymonMakula/sigma-cropper/.github/workflows/deploy.yml@main

@@ -95,7 +95,6 @@
     const formatRadio = document.getElementById("format-radio")
 
     formatRadio.oninput = (event) => {
-        console.log(event.target.value)
         cropper.setAttribute("format", event.target.value)
     }
 
@@ -117,7 +116,6 @@
 
     cropButton.onclick = async () => {
         const file = await cropper.cropImage()
-        console.log(file)
         preview.src = URL.createObjectURL(file)
     }
 
