@@ -35,7 +35,12 @@ export async function bitmapToObjectURL(bitmap: ImageBitmap) {
 const CROPPER_MIN_SIZE_CSS_VAR = "--cropper-min-w";
 
 export function getCropperMinSize() {
-  return Number(
-    getComputedStyle(document.body).getPropertyValue(CROPPER_MIN_SIZE_CSS_VAR),
+  const [dimension] = getCropperMinSizeInPixels().split("px");
+  return Number(dimension);
+}
+
+function getCropperMinSizeInPixels() {
+  return getComputedStyle(document.body).getPropertyValue(
+    CROPPER_MIN_SIZE_CSS_VAR,
   );
 }

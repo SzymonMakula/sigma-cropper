@@ -1,15 +1,15 @@
 #wrapper {
     position: relative;
-    height: calc(var(--cropper-min-w) * 1px);
+    height: var(--cropper-min-w);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(var(--cropper-min-w) * 1px);
+    width: var(--cropper-min-w);
 }
 
 ::slotted(*) {
-    width: calc(var(--cropper-min-w) * 1px);
-    height: calc(var(--cropper-min-w) * 1px);
+    width: var(--cropper-min-w);
+    height: var(--cropper-min-w);
     z-index: 2;
     position: absolute;
     pointer-events: none;
@@ -21,8 +21,8 @@
 
 
 #draggable {
-    min-width: calc(var(--cropper-min-w) * 1px);
-    min-height: calc(var(--cropper-min-w) * 1px);
+    min-width: var(--cropper-min-w);
+    min-height: var(--cropper-min-w);
     max-width: none;
     position: absolute;
     cursor: grab;

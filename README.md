@@ -52,16 +52,15 @@ guidance.
 
 ## Slots
 
-- `selection` - HTMLElement represeting the "cropping area". The Element width and height are both set
-  to `var(--cropper-min-w")px`. Any parts of the input image that fall into the slot Element area are copied over to the
+- `selection` - HTMLElement representing the "cropping area". The Element width and height are both set
+  to `var(--cropper-min-w")`. Any parts of the input image that fall into the slot Element area are copied over to the
   output image. Use this
   slot to style the selection element according to your needs. Do not modify the slots dimensions - these are to be
   handled internally by the WebComponent itself.
 
 ## CSS variables
 
-- `--cropper-min-w: number` - Specifies the `N x N` selection area dimension. The value must be an integer and it's
-  value will be internally converted into a dimension specified in `pixels`.
+- `--cropper-min-w: px` - Specifies the `N x N` selection area dimension. The value must be specified in pixels.
 
 # Developing
 
