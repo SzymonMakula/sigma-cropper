@@ -1,13 +1,19 @@
 {
   "name": "sigma-cropper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "scripts": {
     "build": "npx rollup --config rollup.config.mjs",
     "dev": "npx rollup --config rollup.config.mjs --watch"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SzymonMakula/sigma-cropper.git"
+  },
+  "type": "module",
+  "types": "dist/main.d.ts",
   "keywords": [
-    "corpper",
+    "cropper",
     "image cropper",
     "webcomponent",
     "images"
@@ -16,13 +22,13 @@
   "license": "MIT",
   "description": "A WebComponent for cropping even-sized portions of an input image.",
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.1.1",
-    "prettier": "^3.3.3",
-    "rollup": "^4.24.3",
-    "rollup-plugin-bundle-size": "^1.0.3",
-    "rollup-plugin-import-css": "^3.5.6",
-    "tslib": "^2.8.0",
-    "typescript": "^5.6.2"
+    "@rollup/plugin-terser": "0.4.4",
+    "@rollup/plugin-typescript": "12.1.1",
+    "prettier": "3.3.3",
+    "rollup": "4.24.3",
+    "rollup-plugin-bundle-size": "1.0.3",
+    "rollup-plugin-import-css": "3.5.6",
+    "tslib": "2.8.0",
+    "typescript": "5.6.2"
   }
 }
